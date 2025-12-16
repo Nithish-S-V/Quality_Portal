@@ -65,22 +65,16 @@ sap.ui.define([
         },
 
         _applyPendingFilter: function (oBinding) {
-            // Filters for UsageDecisionCode being empty or null
+            // Filters for UsageDecisionCode being 'PENDING' (now returned by backend)
             var aFilters = [
-                new Filter({
-                    filters: [
-                        new Filter("UsageDecisionCode", FilterOperator.EQ, ''),
-                        new Filter("UsageDecisionCode", FilterOperator.EQ, null) // In case it's literally null
-                    ],
-                    and: false // Apply as an OR condition (empty OR null)
-                })
+                new Filter("UsageDecisionCode", FilterOperator.EQ, 'PENDING')
             ];
             oBinding.filter(aFilters);
         },
 
         // Formatter function to display "Pending" status or UD code
         formatUsageDecisionStatus: function (sUsageDecisionCode) {
-            if (!sUsageDecisionCode || sUsageDecisionCode.trim() === '') {
+            if (sUsageDecisionCode === 'PENDING') {
                 return this.getResourceBundle().getText("statusPending");
             }
             return this.getResourceBundle().getText("statusUDTaken") + ": " + sUsageDecisionCode;
