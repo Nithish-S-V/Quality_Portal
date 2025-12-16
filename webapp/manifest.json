@@ -75,7 +75,11 @@
       "": {
         "dataSource": "mainService",
         "preload": true,
-        "settings": {}
+        "settings": {
+          "defaultBindingMode": "TwoWay",
+          "defaultCountMode": "None",
+          "refreshAfterChange": false
+        }
       }
     },
     "resources": {
@@ -88,28 +92,42 @@
     "routing": {
       "config": {
         "routerClass": "sap.m.routing.Router",
-        "controlAggregation": "pages",
-        "controlId": "app",
-        "transition": "slide",
-        "type": "View",
         "viewType": "XML",
-        "path": "com.kaar.qualityportal.view",
-        "async": true,
-        "viewPath": "com.kaar.qualityportal.view"
+        "viewPath": "com.kaar.qualityportal.view",
+        "controlId": "app",
+        "controlAggregation": "pages",
+        "bypassed": {
+          "target": "notFound"
+        },
+        "async": true
       },
       "routes": [
         {
-          "name": "RouteView1",
-          "pattern": ":?query:",
-          "target": [
-            "TargetView1"
-          ]
+          "pattern": "",
+          "name": "login",
+          "target": "login"
+        },
+        {
+          "pattern": "dashboard",
+          "name": "dashboard",
+          "target": "dashboard"
         }
       ],
       "targets": {
-        "TargetView1": {
-          "id": "View1",
-          "name": "View1"
+        "login": {
+          "viewName": "Login",
+          "viewId": "login",
+          "viewLevel": 1
+        },
+        "dashboard": {
+          "viewName": "Dashboard",
+          "viewId": "dashboard",
+          "viewLevel": 2
+        },
+        "notFound": {
+          "viewName": "NotFound",
+          "viewId": "notFound",
+          "viewLevel": 1
         }
       }
     },

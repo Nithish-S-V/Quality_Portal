@@ -1,0 +1,29 @@
+<mvc:View
+    controllerName="com.kaar.qualityportal.controller.Dashboard"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout">
+    <Page
+        title="{i18n>dashboardPageTitle}"
+        showNavButton="true"
+        navButtonPress=".onNavBack">
+        <content>
+            <l:VerticalLayout class="sapUiContentPadding" width="100%">
+                <Title text="{i18n>dashboardWelcomeText}" level="H2" class="sapUiSmallMarginBottom" />
+                <Text text="{i18n>dashboardInfoText}" />
+
+                <List
+                    headerText="{i18n>inspectionLotsHeader}"
+                    items="{/Z863_C_QINSPECT}"
+                    class="sapUiMediumMarginTop">
+                    <StandardListItem
+                        title="{InspectionLot}"
+                        description="{MaterialDesc} ({MaterialNumber})"
+                        info="{LotQuantity} {UoM}"
+                        type="Navigation"
+                        press=".onInspectionLotPress" />
+                </List>
+            </l:VerticalLayout>
+        </content>
+    </Page>
+</mvc:View>

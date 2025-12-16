@@ -1,0 +1,43 @@
+<mvc:View
+    controllerName="com.kaar.qualityportal.controller.Login"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    displayBlock="true">
+    <Page
+        title="{i18n>loginPageTitle}"
+        showNavButton="false"
+        class="sapUiResponsiveContentPadding">
+        <content>
+            <VBox alignItems="Center" justifyContent="Center" height="100%">
+                <Image src="sap-icon://customer" width="6rem" class="sapUiTinyMarginBottom" />
+                <Title text="{i18n>loginTitle}" class="sapUiLargeMarginBottom" level="H1" />
+
+                <Input
+                    id="employeeIdInput"
+                    placeholder="{i18n>employeeIdPlaceholder}"
+                    width="20rem"
+                    valueLiveUpdate="true"
+                    maxLength="8"
+                    class="sapUiSmallMarginBottom" />
+
+                <Input
+                    id="passwordInput"
+                    placeholder="{i18n>passwordPlaceholder}"
+                    type="Password"
+                    width="20rem"
+                    valueLiveUpdate="true"
+                    class="sapUiSmallMarginBottom" />
+
+                <Button
+                    id="loginButton"
+                    text="{i18n>loginButtonText}"
+                    type="Emphasized"
+                    press=".onLoginPress"
+                    width="20rem"
+                    class="sapUiMediumMarginTop" />
+
+                <Text id="loginStatusText" class="sapUiMediumMarginTop" text="" />
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>
