@@ -46,61 +46,93 @@
                     </IconTabFilter>
 
                     <IconTabFilter
-                        icon="sap-icon://document"
+                        icon="sap-icon://form"
                         text="{i18n>tabResultRecords}"
                         key="resultRecords">
-                        <Table
-                            id="resultRecordsTable"
-                            inset="false"
-                            items="/Z863_C_QRECORD"
-                            class="sapUiSmallMarginTop">
-                            <columns>
-                                <Column><Text text="{i18n>tableColOperationNo}" /></Column>
-                                <Column><Text text="{i18n>tableColCharNo}" /></Column>
-                                <Column><Text text="{i18n>tableColResultCode}" /></Column>
-                                <Column><Text text="{i18n>tableColStatus}" /></Column>
-                            </columns>
-                            <items>
-                                <ColumnListItem>
-                                    <cells>
-                                        <Text text="{OperationNo}" />
-                                        <Text text="{CharacteristicNo}" />
-                                        <Text text="{ResultCode}" />
-                                        <Text text="{Status}" />
-                                    </cells>
-                                </ColumnListItem>
-                            </items>
-                        </Table>
+                        <VBox class="sapUiSmallMargin">
+                            <Panel headerText="{i18n>headerLotDetails}" class="sapUiSmallMarginBottom">
+                                <content>
+                                    <l:Grid defaultSpan="L12 M12 S12" hSpacing="2">
+                                        <VBox alignItems="Center">
+                                            <HBox>
+                                                <Label text="{i18n>labelLotID}: " class="sapUiTinyMarginEnd" design="Bold"/>
+                                                <Text text="{InspectionLot}"/>
+                                            </HBox>
+                                            <HBox>
+                                                <Label text="{i18n>labelMaterial}: " class="sapUiTinyMarginEnd" design="Bold"/>
+                                                <Text text="{MaterialDesc}"/>
+                                            </HBox>
+                                            <HBox>
+                                                <Label text="{i18n>labelTotalQty}: " class="sapUiTinyMarginEnd" design="Bold"/>
+                                                <Text text="{LotQuantity} {UoM}"/>
+                                            </HBox>
+                                        </VBox>
+                                    </l:Grid>
+                                </content>
+                            </Panel>
+
+                            <Panel headerText="{i18n>headerEnterResults}">
+                                <content>
+                                    <VBox>
+                                        <Label text="{i18n>labelGoodStock}" class="sapUiTinyMarginTop"/>
+                                        <Input value="{viewModel>/goodStock}" type="Number" liveChange=".calculateTotal"/>
+                                        
+                                        <Label text="{i18n>labelBlockedStock}" class="sapUiTinyMarginTop"/>
+                                        <Input value="{viewModel>/blockedStock}" type="Number" liveChange=".calculateTotal"/>
+                                        
+                                        <Label text="{i18n>labelReworkStock}" class="sapUiTinyMarginTop"/>
+                                        <Input value="{viewModel>/reworkStock}" type="Number" liveChange=".calculateTotal"/>
+
+                                        <HBox class="sapUiMediumMarginTop" alignItems="Center">
+                                            <Label text="{i18n>labelTotalRecorded}" design="Bold" class="sapUiTinyMarginEnd"/>
+                                            <Text text="{viewModel>/totalRecorded}" class="sapUiTinyMarginEnd"/>
+                                        </HBox>
+
+                                        <Button text="{i18n>btnSaveResults}" type="Emphasized" press=".onSaveResults" class="sapUiMediumMarginTop"/>
+                                    </VBox>
+                                </content>
+                            </Panel>
+                        </VBox>
                     </IconTabFilter>
 
                     <IconTabFilter
                         icon="sap-icon://decision"
                         text="{i18n>tabUsageDecision}"
                         key="usageDecision">
-                        <Table
-                            id="usageDecisionTable"
-                            inset="false"
-                            items="/Z863_C_QUSAGE"
-                            class="sapUiSmallMarginTop">
-                            <columns>
-                                <Column><Text text="{i18n>tableColUDType}" /></Column>
-                                <Column><Text text="{i18n>tableColUDCode}" /></Column>
-                                <Column><Text text="{i18n>tableColDecisionBy}" /></Column>
-                                <Column><Text text="{i18n>tableColDecisionDate}" /></Column>
-                                <Column><Text text="{i18n>tableColQualityScore}" /></Column>
-                            </columns>
-                            <items>
-                                <ColumnListItem>
-                                    <cells>
-                                        <Text text="{InspectionLotType}" />
-                                        <Text text="{UsageDecisionCode}" />
-                                        <Text text="{DecisionBy}" />
-                                        <Text text="{path: 'DecisionDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' }}" />
-                                        <Text text="{QualityScore}" />
-                                    </cells>
-                                </ColumnListItem>
-                            </items>
-                        </Table>
+                        <VBox class="sapUiSmallMargin">
+                            <Panel headerText="{i18n>headerLotDecision}" class="sapUiSmallMarginBottom">
+                                <content>
+                                    <l:Grid defaultSpan="L12 M12 S12" hSpacing="2">
+                                        <VBox alignItems="Center">
+                                            <HBox>
+                                                <Label text="{i18n>labelLotID}: " class="sapUiTinyMarginEnd" design="Bold"/>
+                                                <Text text="{InspectionLot}"/>
+                                            </HBox>
+                                            <HBox>
+                                                <Label text="{i18n>labelMaterial}: " class="sapUiTinyMarginEnd" design="Bold"/>
+                                                <Text text="{MaterialDesc}"/>
+                                            </HBox>
+                                            <HBox>
+                                                <Label text="{i18n>labelTotalQty}: " class="sapUiTinyMarginEnd" design="Bold"/>
+                                                <Text text="{LotQuantity} {UoM}"/>
+                                            </HBox>
+                                        </VBox>
+                                    </l:Grid>
+                                </content>
+                            </Panel>
+
+                            <Panel headerText="{i18n>headerMakeDecision}">
+                                <content>
+                                    <VBox alignItems="Center" class="sapUiMediumMargin">
+                                        <Title text="{i18n>questionQualityChecks}" level="H4" class="sapUiMediumMarginBottom"/>
+                                        <HBox>
+                                            <Button text="{i18n>btnAccept}" type="Accept" press=".onAcceptLot" class="sapUiSmallMarginEnd" width="150px"/>
+                                            <Button text="{i18n>btnReject}" type="Reject" press=".onRejectLot" width="150px"/>
+                                        </HBox>
+                                    </VBox>
+                                </content>
+                            </Panel>
+                        </VBox>
                     </IconTabFilter>
                 </items>
             </IconTabBar>
