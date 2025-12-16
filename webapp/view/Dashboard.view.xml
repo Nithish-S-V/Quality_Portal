@@ -7,22 +7,36 @@
         title="{i18n>dashboardPageTitle}"
         showNavButton="true"
         navButtonPress=".onNavBack">
+        <headerContent>
+            <SegmentedButton selectedKey="pending" selectionChange=".onFilterChange" class="sapUiTinyMarginEnd">
+                <items>
+                    <SegmentedButtonItem key="all" text="{i18n>filterAllLots}" />
+                    <SegmentedButtonItem key="pending" text="{i18n>filterPendingLots}" />
+                </items>
+            </SegmentedButton>
+        </headerContent>
         <content>
             <l:VerticalLayout class="sapUiContentPadding" width="100%">
                 <Title text="{i18n>dashboardWelcomeText}" level="H2" class="sapUiSmallMarginBottom" />
                 <Text text="{i18n>dashboardInfoText}" />
 
+                <!-- Inspection Lots List -->
                 <List
+                    id="idInspectionLotList"
                     headerText="{i18n>inspectionLotsHeader}"
-                    items="{/Z863_C_QINSPECT}"
+                    items="{path: '/Z863_C_QINSPECT', templateShareable:false}"
                     class="sapUiMediumMarginTop">
                     <StandardListItem
                         title="{InspectionLot}"
-                        description="{MaterialDesc} ({MaterialNumber})"
-                        info="{LotQuantity} {UoM}"
+                        description="{MaterialDesc} ({MaterialNumber}) - {Plant}"
+                        info="{
+                            path: 'UsageDecisionCode',
+                            formatter: '.formatUsageDecisionStatus'
+                        }"
                         type="Navigation"
                         press=".onInspectionLotPress" />
                 </List>
+
             </l:VerticalLayout>
         </content>
     </Page>
