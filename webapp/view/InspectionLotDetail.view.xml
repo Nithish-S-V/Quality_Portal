@@ -1,0 +1,116 @@
+<mvc:View
+    controllerName="com.kaar.qualityportal.controller.InspectionLotDetail"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:f="sap.f"
+    xmlns:l="sap.ui.layout">
+    <Page
+        id="detailPage"
+        title="{i18n>inspectionLotDetailPageTitle}"
+        showNavButton="true"
+        navButtonPress=".onNavBack"
+        backgroundDesign="Solid">
+        <headerContent>
+            <Title text="{InspectionLot}" level="H2" class="sapUiTinyMarginEnd" />
+        </headerContent>
+        <content>
+            <IconTabBar
+                id="idIconTabBar"
+                selectedKey="overview"
+                expandable="false"
+                class="sapUiResponsiveContentPadding">
+                <items>
+                    <IconTabFilter
+                        icon="sap-icon://sys-enter-2"
+                        text="{i18n>tabOverview}"
+                        key="overview">
+                        <VBox class="sapUiSmallMargin">
+                            <Label text="{i18n>materialNumber}:" />
+                            <Text text="{MaterialNumber} - {MaterialDesc}" class="sapUiSmallMarginBottom" />
+
+                            <Label text="{i18n>plant}:" />
+                            <Text text="{Plant}" class="sapUiSmallMarginBottom" />
+
+                            <Label text="{i18n>inspectionType}:" />
+                            <Text text="{InspectionType}" class="sapUiSmallMarginBottom" />
+
+                            <Label text="{i18n>lotQuantity}:" />
+                            <Text text="{LotQuantity} {UoM}" class="sapUiSmallMarginBottom" />
+
+                            <Label text="{i18n>usageDecisionCode}:" />
+                            <Text text="{UsageDecisionCode}" />
+                        </VBox>
+                    </IconTabFilter>
+
+                    <IconTabFilter
+                        icon="sap-icon://document"
+                        text="{i18n>tabResultRecords}"
+                        key="resultRecords">
+                        <Table
+                            id="resultRecordsTable"
+                            inset="false"
+                            items="{
+                                path: '/Z863_C_QRECORD',
+                                filters: [
+                                    {path: 'InspectionLot', operator: 'EQ', value1: '{InspectionLot}'}
+                                ]
+                            }"
+                            class="sapUiSmallMarginTop">
+                            <columns>
+                                <Column><Text text="{i18n>tableColOperationNo}" /></Column>
+                                <Column><Text text="{i18n>tableColCharNo}" /></Column>
+                                <Column><Text text="{i18n>tableColResultCode}" /></Column>
+                                <Column><Text text="{i18n>tableColStatus}" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{OperationNo}" />
+                                        <Text text="{CharacteristicNo}" />
+                                        <Text text="{ResultCode}" />
+                                        <Text text="{Status}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+
+                    <IconTabFilter
+                        icon="sap-icon://decision"
+                        text="{i18n>tabUsageDecision}"
+                        key="usageDecision">
+                        <Table
+                            id="usageDecisionTable"
+                            inset="false"
+                            items="{
+                                path: '/Z863_C_QUSAGE',
+                                filters: [
+                                    {path: 'InspectionLotNo', operator: 'EQ', value1: '{InspectionLot}'}
+                                ]
+                            }"
+                            class="sapUiSmallMarginTop">
+                            <columns>
+                                <Column><Text text="{i18n>tableColUDType}" /></Column>
+                                <Column><Text text="{i18n>tableColUDCode}" /></Column>
+                                <Column><Text text="{i18n>tableColDecisionBy}" /></Column>
+                                <Column><Text text="{i18n>tableColDecisionDate}" /></Column>
+                                <Column><Text text="{i18n>tableColQualityScore}" /></Column>
+                            </columns>
+                            <items>
+                                <ColumnListItem>
+                                    <cells>
+                                        <Text text="{InspectionLotType}" />
+                                        <Text text="{UsageDecisionCode}" />
+                                        <Text text="{DecisionBy}" />
+                                        <Text text="{path: 'DecisionDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' }}" />
+                                        <Text text="{QualityScore}" />
+                                    </cells>
+                                </ColumnListItem>
+                            </items>
+                        </Table>
+                    </IconTabFilter>
+                </items>
+            </IconTabBar>
+        </content>
+    </Page>
+</mvc:View>

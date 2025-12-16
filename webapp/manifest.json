@@ -111,6 +111,11 @@
           "pattern": "dashboard",
           "name": "dashboard",
           "target": "dashboard"
+        },
+        {
+          "pattern": "inspectionLotDetail/{inspectionLotId}",
+          "name": "inspectionLotDetail",
+          "target": "inspectionLotDetail"
         }
       ],
       "targets": {
@@ -123,6 +128,11 @@
           "viewName": "Dashboard",
           "viewId": "dashboard",
           "viewLevel": 2
+        },
+        "inspectionLotDetail": {
+          "viewName": "InspectionLotDetail",
+          "viewId": "inspectionLotDetail",
+          "viewLevel": 3
         },
         "notFound": {
           "viewName": "NotFound",

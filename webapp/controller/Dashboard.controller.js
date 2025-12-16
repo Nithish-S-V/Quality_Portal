@@ -16,9 +16,16 @@ sap.ui.define([
         },
 
         onInspectionLotPress: function (oEvent) {
-            // Example: Navigate to a detail page for the selected inspection lot
-            var sInspectionLot = oEvent.getSource().getTitle();
-            MessageToast.show("Selected Inspection Lot: " + sInspectionLot);
+            // Get the binding context of the pressed item
+            var oContext = oEvent.getSource().getBindingContext();
+            // Get the InspectionLot ID from the context
+            var sInspectionLot = oContext.getProperty("InspectionLot");
+
+            var oRouter = UIComponent.getRouterFor(this);
+            // Navigate to the 'inspectionLotDetail' route, passing the InspectionLot ID
+            oRouter.navTo("inspectionLotDetail", {
+                inspectionLotId: sInspectionLot
+            });
         }
     });
 });
