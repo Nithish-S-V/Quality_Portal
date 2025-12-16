@@ -50,6 +50,7 @@
                         text="{i18n>tabResultRecords}"
                         key="resultRecords">
                         <VBox class="sapUiSmallMargin">
+                            <!-- Header Panel (Always Visible) -->
                             <Panel headerText="{i18n>headerLotDetails}" class="sapUiSmallMarginBottom">
                                 <content>
                                     <l:Grid defaultSpan="L12 M12 S12" hSpacing="2">
@@ -71,7 +72,8 @@
                                 </content>
                             </Panel>
 
-                            <Panel headerText="{i18n>headerEnterResults}">
+                            <!-- NEW: Input Form (Visible only if Pending) -->
+                            <Panel headerText="{i18n>headerEnterResults}" visible="{path: 'UsageDecisionCode', formatter: '.isLotPending'}">
                                 <content>
                                     <VBox>
                                         <Label text="{i18n>labelGoodStock}" class="sapUiTinyMarginTop"/>
@@ -92,6 +94,36 @@
                                     </VBox>
                                 </content>
                             </Panel>
+
+                            <!-- OLD: Read-Only Table (Visible only if Locked) -->
+                            <Table
+                                id="resultRecordsTable"
+                                inset="false"
+                                items="/Z863_C_QRECORD"
+                                visible="{path: 'UsageDecisionCode', formatter: '.isLotLocked'}"
+                                class="sapUiSmallMarginTop">
+                                <headerToolbar>
+                                    <Toolbar>
+                                        <Title text="{i18n>tabResultRecords} (Read-Only)"/>
+                                    </Toolbar>
+                                </headerToolbar>
+                                <columns>
+                                    <Column><Text text="{i18n>tableColOperationNo}" /></Column>
+                                    <Column><Text text="{i18n>tableColCharNo}" /></Column>
+                                    <Column><Text text="{i18n>tableColResultCode}" /></Column>
+                                    <Column><Text text="{i18n>tableColStatus}" /></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <Text text="{OperationNo}" />
+                                            <Text text="{CharacteristicNo}" />
+                                            <Text text="{ResultCode}" />
+                                            <Text text="{Status}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
                         </VBox>
                     </IconTabFilter>
 
@@ -100,6 +132,7 @@
                         text="{i18n>tabUsageDecision}"
                         key="usageDecision">
                         <VBox class="sapUiSmallMargin">
+                             <!-- Header Panel (Always Visible) -->
                             <Panel headerText="{i18n>headerLotDecision}" class="sapUiSmallMarginBottom">
                                 <content>
                                     <l:Grid defaultSpan="L12 M12 S12" hSpacing="2">
@@ -121,7 +154,8 @@
                                 </content>
                             </Panel>
 
-                            <Panel headerText="{i18n>headerMakeDecision}">
+                            <!-- NEW: Decision Buttons (Visible only if Pending) -->
+                            <Panel headerText="{i18n>headerMakeDecision}" visible="{path: 'UsageDecisionCode', formatter: '.isLotPending'}">
                                 <content>
                                     <VBox alignItems="Center" class="sapUiMediumMargin">
                                         <Title text="{i18n>questionQualityChecks}" level="H4" class="sapUiMediumMarginBottom"/>
@@ -132,6 +166,38 @@
                                     </VBox>
                                 </content>
                             </Panel>
+
+                            <!-- OLD: Read-Only Table (Visible only if Locked) -->
+                            <Table
+                                id="usageDecisionTable"
+                                inset="false"
+                                items="/Z863_C_QUSAGE"
+                                visible="{path: 'UsageDecisionCode', formatter: '.isLotLocked'}"
+                                class="sapUiSmallMarginTop">
+                                <headerToolbar>
+                                    <Toolbar>
+                                        <Title text="{i18n>tabUsageDecision} (Read-Only)"/>
+                                    </Toolbar>
+                                </headerToolbar>
+                                <columns>
+                                    <Column><Text text="{i18n>tableColUDType}" /></Column>
+                                    <Column><Text text="{i18n>tableColUDCode}" /></Column>
+                                    <Column><Text text="{i18n>tableColDecisionBy}" /></Column>
+                                    <Column><Text text="{i18n>tableColDecisionDate}" /></Column>
+                                    <Column><Text text="{i18n>tableColQualityScore}" /></Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <Text text="{InspectionLotType}" />
+                                            <Text text="{UsageDecisionCode}" />
+                                            <Text text="{DecisionBy}" />
+                                            <Text text="{path: 'DecisionDate', type: 'sap.ui.model.type.Date', formatOptions: { pattern: 'yyyy-MM-dd' }}" />
+                                            <Text text="{QualityScore}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
                         </VBox>
                     </IconTabFilter>
                 </items>

@@ -85,6 +85,16 @@ sap.ui.define([
                 var oRouter = UIComponent.getRouterFor(this);
                 oRouter.navTo("dashboard", {}, true);
             }
+        },
+
+        isLotPending: function (sCode) {
+            // Returns true if code is PENDING, null, or empty
+            return !sCode || sCode === 'PENDING';
+        },
+
+        isLotLocked: function (sCode) {
+            // Returns true if code is NOT Pending (i.e., A, R, R2, RM, etc.)
+            return sCode && sCode !== 'PENDING';
         }
     });
 });
